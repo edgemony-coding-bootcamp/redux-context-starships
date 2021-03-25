@@ -1,25 +1,21 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import {useContext, useEffect, useState} from 'react'
 import {Button} from 'react-bootstrap'
 import './App.css';
 import SimpleCard from "./SimpleCard";
 import StarShipForm from "./StarShipForm";
+import {StarShipsContext} from "./Context/StarshipsProvider";
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 
 function App() {
-  const [starships, setStarships] = useState([])
+  // const [starships, setStarships] = useState([])
   const [showFormModal, setShowFormModal] = useState(false)
   const [newStarship, setNewStarship] = useState({})
-
-  const getAllStarShips = async () => {
-    const { data: starships } = await axios.get('http://localhost:3000/starships')
-    setStarships(starships)
-  }
+  const {fetchAllShips, state: {starships}} = useContext(StarShipsContext)
 
   useEffect(() => {
-
-    getAllStarShips()
+    fetchAllShips()
   },[])
 
   const checkForm = () => newStarship.name && newStarship.manufacturer && newStarship.image && newStarship.crew >= 0 && newStarship.passengers >= 0 && newStarship.cargo_capacity >= 0
@@ -37,7 +33,7 @@ function App() {
     e.preventDefault()
     if(checkForm()) {
       await axios.post('http://localhost:3000/starships', newStarship)
-      await getAllStarShips()
+      //await getAllStarShips()
     } else {
       throw new Error ('Form not Valid')
     }
@@ -48,7 +44,7 @@ function App() {
 
   return (
       <div className={"App"}>
-        <div className={"PostsContainer"}>{starships.map(starship => (<SimpleCard fetchAll={getAllStarShips} starship={starship} key={starship.id}/>))}</div>
+        <div className={"PostsContainer"}>{starships.map(starship => (<SimpleCard starship={starship} key={starship.id}/>))}</div>
         <StarShipForm starship={newStarship} show={showFormModal} handleClose={closeForm} onInputChange={onInputChange} addPost={addNewStarShip}/>
         <Button className={'addButton'} size={'lg'} variant={'primary'} onClick={() => setShowFormModal(true)}> + </Button>
       </div>
