@@ -37,7 +37,7 @@ function App() {
     if(checkForm()) {
       dispatch(addShip(newStarship))
     } else {
-      throw new Error ('Form not Valid')
+      throw new Error ('Form NOT Valid')
     }
   }
 
