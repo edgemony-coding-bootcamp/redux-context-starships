@@ -1,11 +1,15 @@
 import {Button, Card} from "react-bootstrap";
 import {useState} from "react";
 import SimpleCardDetail from "./SimpleCardDetail";
+import axios from "axios";
 
 export default ({starship, fetchAll}) => {
     const [open, setOpen] = useState(false)
-    //const {deleteShip} = useContext(StarShipContext)
 
+    const deleteSpaceship = async () => {
+        await axios.delete(`http://localhost:3000/starships/${starship.id}`)
+        fetchAll()
+    }
 
     return (
         <Card key={starship.id} className="Card">
@@ -18,7 +22,7 @@ export default ({starship, fetchAll}) => {
                 </Card.Text>
                 <div>
                     <Button variant="primary" onClick={() => setOpen(true)}>Details</Button>{' '}
-                    <Button variant="danger" onClick={() => {}}> Delete </Button>
+                    <Button variant="danger" onClick={deleteSpaceship}> Delete </Button>
                 </div>
             </Card.Body>
             <SimpleCardDetail starship={starship} handleClose={() => setOpen(false)} show={open}/>
