@@ -1,10 +1,13 @@
 import {Button, Card} from "react-bootstrap";
-import {useContext, useState} from "react";
+import {useState} from "react";
 import SimpleCardDetail from "./SimpleCardDetail";
+import {useStarShipContext} from "./Context/StarshipsProvider";
 
 export default ({starship}) => {
     const [open, setOpen] = useState(false)
-    //const {deleteShip} = useContext(StarShipContext)
+    const {deleteShip} = useStarShipContext()
+
+    const removeShip = () => deleteShip(starship.id)
 
 
     return (
@@ -18,7 +21,7 @@ export default ({starship}) => {
                 </Card.Text>
                 <div>
                     <Button variant="primary" onClick={() => setOpen(true)}>Details</Button>{' '}
-                    <Button variant="danger" onClick={() => {}}> Delete </Button>
+                    <Button variant="danger" onClick={removeShip}> Delete </Button>
                 </div>
             </Card.Body>
             <SimpleCardDetail starship={starship} handleClose={() => setOpen(false)} show={open}/>
