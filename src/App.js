@@ -32,7 +32,7 @@ function App() {
     setShowFormModal(false)
   }
 
-  const addNewStarShip = async e => {
+  const addNewStarShip = e => {
     e.preventDefault()
     if(checkForm()) {
       dispatch(addShip(newStarship))
@@ -47,7 +47,7 @@ function App() {
   return (
       <div className={"App"}>
         <div className={"PostsContainer"}>{starships.map(starship => (<SimpleCard starship={starship} key={starship.id}/>))}</div>
-        <StarShipForm starship={newStarship} show={showFormModal} handleClose={closeForm} onInputChange={onInputChange} addPost={addNewStarShip}/>
+        <StarShipForm starship={newStarship} show={showFormModal} handleClose={closeForm} onInputChange={onInputChange} addShip={addNewStarShip}/>
         <Button className={'addButton'} size={'lg'} variant={'primary'} onClick={() => setShowFormModal(true)}> + </Button>
       </div>
   );

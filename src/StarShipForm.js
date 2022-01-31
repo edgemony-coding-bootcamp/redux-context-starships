@@ -1,13 +1,18 @@
 import { Button, Col, Form, Modal} from 'react-bootstrap'
 import {useState} from 'react'
 
-export default ({onInputChange, addPost, show, handleClose}) => {
+export default ({onInputChange, addShip, show, handleClose}) => {
     const [validate, setValidate] = useState(false)
 
-    const checkAndAddStarship = async e => {
+    const handleCloseWrapper = () => {
+        if(validate) setValidate(false)
+        handleClose()
+    }
+
+    const checkAndAddStarship = e => {
         setValidate(true)
         try {
-            await addPost(e)
+             addShip(e)
             setValidate(false)
             handleClose()
         }
@@ -17,7 +22,7 @@ export default ({onInputChange, addPost, show, handleClose}) => {
     }
 
     return (
-        <Modal size='xl' centered show={show} onHide={handleClose}>
+        <Modal size='xl' centered show={show} onHide={handleCloseWrapper}>
             <Modal.Header closeButton>
                 <Modal.Title>Add New Starship</Modal.Title>
             </Modal.Header>

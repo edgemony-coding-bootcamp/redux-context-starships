@@ -9,7 +9,7 @@ export default ({starship}) => {
     const [open, setOpen] = useState(false)
     const dispatch = useDispatch()
 
-    const deleteStarship = async () => {
+    const deleteStarship = () => {
         dispatch(deleteShip(starship.id))
     }
 
