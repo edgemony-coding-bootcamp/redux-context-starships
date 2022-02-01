@@ -4,6 +4,11 @@ import {useState} from 'react'
 export default ({onInputChange, addPost, show, handleClose}) => {
     const [validate, setValidate] = useState(false)
 
+    const handleCloseWrapper = () => {
+        setValidate(false)
+        handleClose()
+    }
+
     const checkAndAddStarship = async e => {
         setValidate(true)
         try {
@@ -17,7 +22,7 @@ export default ({onInputChange, addPost, show, handleClose}) => {
     }
 
     return (
-        <Modal size='xl' centered show={show} onHide={handleClose}>
+        <Modal size='xl' centered show={show} onHide={handleCloseWrapper}>
             <Modal.Header closeButton>
                 <Modal.Title>Add New Starship</Modal.Title>
             </Modal.Header>
