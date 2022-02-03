@@ -31,7 +31,6 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 loading: false,
-                error: action.payload
             }
 
         case ADD_STARSHIP_REQUEST:
@@ -50,7 +49,7 @@ export default (state = defaultState, action) => {
         case ADD_STARSHIP_ERROR:
             return {
                 ...state,
-                error: action.payload
+                loading: false
             }
 
         case DELETE_STARSHIP_REQUEST:
@@ -65,12 +64,6 @@ export default (state = defaultState, action) => {
                 loading: false,
                 starships: state.starships.filter(starship => starship.id !== action.payload)
             }
-        case DISCARD_ERROR:
-            return {
-            ...state,
-                error:null
-        }
-
         default :
             return state
     }

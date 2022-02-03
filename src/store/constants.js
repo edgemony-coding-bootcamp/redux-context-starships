@@ -13,6 +13,7 @@ export const ADD_STARSHIP_REQUEST = 'ADD_STARSHIP_REQUEST'
 export const ADD_STARSHIP_ERROR = 'ADD_STARSHIP_ERROR'
 export const ADD_STARSHIP_SUCCESS = 'ADD_STARSHIP_SUCCESS'
 
-// per rimuovere errore
+// per errore
 export const DISCARD_ERROR = 'DISCARD_ERROR'
+export const DISPLAY_ERROR = 'DISPLAY_ERROR'
 

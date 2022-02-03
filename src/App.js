@@ -6,6 +6,7 @@ import SimpleCard from "./SimpleCard";
 import StarShipForm from "./StarShipForm";
 import {useDispatch, useSelector} from "react-redux";
 import {addShip, fetchAllShips} from "./store/actions";
+import ErrorModal from "./ErrorModal";
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 
@@ -13,7 +14,7 @@ function App() {
   const [showFormModal, setShowFormModal] = useState(false)
   const [newStarship, setNewStarship] = useState({})
   const dispatch = useDispatch()
-  const starships = useSelector(state => state.starships)
+  const {starships} = useSelector(state => state.starships)
 
 
 
@@ -49,6 +50,7 @@ function App() {
         <div className={"PostsContainer"}>{starships.map(starship => (<SimpleCard starship={starship} key={starship.id}/>))}</div>
         <StarShipForm starship={newStarship} show={showFormModal} handleClose={closeForm} onInputChange={onInputChange} addShip={addNewStarShip}/>
         <Button className={'addButton'} size={'lg'} variant={'primary'} onClick={() => setShowFormModal(true)}> + </Button>
+        <ErrorModal/>
       </div>
   );
 }

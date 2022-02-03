@@ -2,7 +2,7 @@ import axios from 'axios'
 import {
     ADD_STARSHIP_ERROR,
     ADD_STARSHIP_REQUEST, ADD_STARSHIP_SUCCESS, DELETE_STARSHIP_ERROR, DELETE_STARSHIP_REQUEST, DELETE_STARSHIP_SUCCESS,
-    DISCARD_ERROR,
+    DISCARD_ERROR, DISPLAY_ERROR,
     FETCH_ALL_STARSHIPS_ERROR,
     FETCH_ALL_STARSHIPS_REQUEST,
     FETCH_ALL_STARSHIPS_SUCCESS
@@ -16,7 +16,8 @@ export const fetchAllShips = () => {
             dispatch({type: FETCH_ALL_STARSHIPS_SUCCESS, payload: starships})
         }
         catch(e) {
-            dispatch({type:FETCH_ALL_STARSHIPS_ERROR, payload: e })
+            dispatch({type:FETCH_ALL_STARSHIPS_ERROR })
+            dispatch(displayError(e.message))
         }
     }
 }
@@ -25,10 +26,12 @@ export const addShip = (starship) => {
     return async (dispatch) => {
         dispatch({type: ADD_STARSHIP_REQUEST})
         try {
-            const { data } = await axios.post('http://localhost:3000/starships', starship)
-            dispatch({type: ADD_STARSHIP_SUCCESS, payload: data})
+           // const { data } = await axios.post('http://localhost:3000/starships', starship)
+            throw new Error('Cannot Add Starship')
+           // dispatch({type: ADD_STARSHIP_SUCCESS, payload: data})
         } catch (e) {
-            dispatch({type:ADD_STARSHIP_ERROR, payload: e })
+            dispatch({type:ADD_STARSHIP_ERROR})
+            dispatch(displayError(e.message))
         }
     }
 }
@@ -44,7 +47,8 @@ export const deleteShip = (id) => {
                 throw new Error ('Delete Failed')
             }
         } catch (e) {
-            dispatch({type:DELETE_STARSHIP_ERROR, payload: e })
+            dispatch({type:DELETE_STARSHIP_ERROR})
+            dispatch(displayError(e.message))
         }
     }
 }
@@ -52,3 +56,5 @@ export const deleteShip = (id) => {
 export const discardError = () => ({
     type: DISCARD_ERROR,
 })
+
+export const displayError = e => ({type: DISPLAY_ERROR, payload: e})

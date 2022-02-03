@@ -1,13 +1,21 @@
-import {applyMiddleware, createStore, compose} from "redux";
+import {applyMiddleware, createStore, compose, combineReducers} from "redux";
 import thunk from 'redux-thunk'
 
-import StarshipReducer from './starShipReducer'
+import starshipReducer from './starShipReducer'
+import errorReducer from "./errorReducer";
 
 const defaultStore = {
-    starships: [],
-    error: null,
-    loading: false,
+    starships: {
+        starships: [],
+        loading: false
+    },
+    error: {
+        error: false,
+        message: ''
+    },
 }
 
+const rootReducer = combineReducers({error: errorReducer,starships: starshipReducer })
 
-export const store = createStore(StarshipReducer, defaultStore, compose(applyMiddleware(thunk),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+
+export const store = createStore(rootReducer, defaultStore, compose(applyMiddleware(thunk),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
