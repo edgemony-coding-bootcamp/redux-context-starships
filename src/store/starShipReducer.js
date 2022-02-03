@@ -8,7 +8,6 @@ import {
 
 const defaultState = {
     starships: [],
-    error: null,
     loading: false,
 }
 
